@@ -1,0 +1,8 @@
+print("UZBEK programmer Davlatbek Xasanov(nickname:davlatx031)")
+a = str(input("Enter random word >> "))
+f = int(input("Enter random number >> "))
+p = len(a)
+if a == f:
+  print(1)
+else:
+  print(0)
