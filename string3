@@ -1,0 +1,4 @@
+print("UZBEK programmer Davlatbek Xasanov(nickname:davlatx031)")
+a = str(input("Enter a worl to slice >> ")
+for i in a:
+  print(i, end = " ")
