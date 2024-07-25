@@ -1,0 +1,7 @@
+print("UZBEK programmer Davlatbek Xasanov(nickname:davlatx031)")
+print("The password registred as int")
+a = int(input("Enter the password >> "))
+if a == 2011:
+  print("Welcome!")
+else:
+  print("Incorrect password!")
