@@ -1,0 +1,16 @@
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes
+
+TOKEN = '7359273059:AAG-n9QvhsxXcuLdaZNo4i84CNk_d5VZHnE'
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user = update.message.from_user
+    await update.message.reply_text(f'❤❤❤ Aziz {user.first_name}! Tavallud ayomingiz muborak bolsin. Men sizga dunyodagi eng shirin so\'zlarni tilab qolaman. Minglarga kirib yurish nasibu ro\'za aylasin yana bir bor tavallud ayomingiz muborak bo\'lsin ❤❤❤')
+
+def main() -> None:
+    application = Application.builder().token(TOKEN).build()
+    application.add_handler(CommandHandler("start",start))
+    application.run_polling()
+
+if __name__ == '__main__':
+    main()
