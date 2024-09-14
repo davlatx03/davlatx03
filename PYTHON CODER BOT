@@ -1,0 +1,19 @@
+#https://t.me/pyhoncoder_bot
+import asyncio
+
+from aiogram import Bot, Dispatcher, Router, types
+
+bot = Bot("7284387642:AAEDiCNZgcfqXEaih4W3IVT00CUDLeEIO2o")
+dp = Dispatcher()
+router = Router()
+
+@router.message()
+async def echo(message:types.Message):
+    await message.answer("Assalomu Alaykum  python dasturlash, scratch dasturlsh va arduino dasturlashni 👇 linkadi kanaldan o'rganishingiz mumkun. Reklama uchun: @davlatx031 ,Bizning kanalimiz https://t.me/Davlatbek_Devloper . ")
+
+async def main():
+    dp.include_router(router)
+    await dp.start_polling(bot)
+
+if __name__=="__main__":
+    asyncio.run(main())
