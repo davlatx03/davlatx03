@@ -1,0 +1,53 @@
+@Client.on_message(filters.text & filters.private)
+async def more(client: Client, message: Message):
+    print("Admin section handled")
+    
+    # Check if the message is from an admin
+    if message.text == "/admin" and message.chat.id in ADMINS:
+        print("This is the admin panel")
+        await client.send_message(
+            chat_id=message.chat.id,
+            text="Salom, Admin",
+            reply_markup=admin_buttons()
+        )
+        await put_step(cid=message.chat.id, step="!!!")
+        return  # Ensure the admin section doesn't fall through to further steps
+
+    # Retrieve the current step for the user
+    current_step = await get_step(message.chat.id)
+    print(f"Current step: {current_step}")
+
+    # Handle "channel_del" step
+    if current_step == "channel_del" and message.text not in ["/start", "/admin"]:
+        try:
+            x = int(message.text)
+            if delete_channel(ch_id=x):
+                await client.send_message(
+                    chat_id=message.chat.id,
+                    text="Kanal olib tashlandi"
+                )
+            else:
+                await client.send_message(
+                    chat_id=message.chat.id,
+                    text="Xatolik! IDni to'g'ri kiritdingizmi tekshiring!"
+                )
+        except ValueError:
+            await client.send_message(
+                chat_id=message.chat.id,
+                text="Xatolik! IDni to'g'ri kiritdingizmi tekshiring!"
+            )
+        await put_step(cid=message.chat.id, step="!!!")
+
+    # Handle "add_channel" step
+    elif current_step == "add_channel" and message.text not in ["/start", "/admin"]:
+        if put_channel(message.text):
+            await client.send_message(
+                chat_id=message.chat.id,
+                text=f"{message.text} kanali qabul qilindi!"
+            )
+        else:
+            await client.send_message(
+                chat_id=message.chat.id,
+                text="Xatolik! Bu kanal oldin qo'shilgan bo'lishi mumkin yoki boshqa xatolik, iltimos tekshiring"
+            )
+        await put_step(cid=message.chat.id, step="!!!")
