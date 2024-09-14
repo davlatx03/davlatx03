@@ -1,0 +1,26 @@
+from tarjima import to_cyrillic, to_latin
+import telebot
+
+import re
+import sys
+
+
+
+TOKEN='6773385212:AAEpa97lG5xR1M9ugnCLyZmhvJ19jDKE0qQ'
+bot = telebot.TeleBot(TOKEN, parse_mode=None)
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    javob=' Assalomu alaykum xurmatli foydalanuvchi! Botimizga Xush kelibsiz. Bizning Kanallarimiz https://t.me/Davlatbek_Devloper , https://t.me/dragon_gaming_pubgm .  Reklama uchun @davlatx031 . Bot yaratuvchisi @davlatx031.'
+    javob+='Agar so\'zni lotin-crill  qilmoqchi bolsangiz so\'zni yuboring yoki matnni. '
+    bot.reply_to(message, javob )
+@bot.message_handler(func=lambda message: True)
+def echo_all(message):
+    msg=message.text
+    if msg.isascii():
+        javob = to_cyrillic(msg)
+    else:
+        javob = to_latin(msg)
+    bot.reply_to(message, javob)
+
+bot.polling()
